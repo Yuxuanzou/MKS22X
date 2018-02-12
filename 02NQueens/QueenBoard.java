@@ -56,7 +56,7 @@ public class QueenBoard{
         for (int row = r + 1,col = c + 1;row < board.length && col < board[r].length;row++,col++){
             board[row][col] += 1;
         }
-        for (int row = r - 1,col = c + 1;row > 0 && col < board[r].length;row--,col++){
+        for (int row = r - 1,col = c + 1;row >= 0 && col < board[r].length;row--,col++){
             board[row][col] += 1;
         }
     }
@@ -94,9 +94,6 @@ public class QueenBoard{
     }
     
     public boolean solverHelper(int r, int c){
-        if (size == 2 || size == 3){
-            return false;
-        }
         if (c == board.length){
             return true;
         }
@@ -112,26 +109,20 @@ public class QueenBoard{
     }
     
     public int countSolutions(){
-        numOfSolutions = countHelper(0,0);
-        return numOfSolutions;
+        return countHelper(0,0);
     }
     
     public int countHelper(int r, int c){
-        if (size == 2 || size == 3){
-            return 0;
+	if (c == board.length){
+	    clear();
+            numOfSolutions += 1;
         }
-        if (c == board.length){
-            return numOfSolutions;
-        }
-        for (int i = r; i < board.length;i++){
-            for (int k = c;k < board.length; k++){
-            if (addQueen(i,k)){
-                if (solverHelper(i,k + 1)){
+        for (int i = 0; i < board.length;i++){
+            if (addQueen(i,c)){
+                if (solverHelper(i,c + 1)){
                     continue;
                 }
                 removeQueen(i,c);
-            }
-            numOfSolutions += 1;
             }
         }
         return numOfSolutions;
@@ -146,9 +137,10 @@ public class QueenBoard{
     }
 
     public static void main(String[] args){
-        QueenBoard g = new QueenBoard(4);
+        QueenBoard g = new QueenBoard(7);
         System.out.println(g.solve());
      System.out.println(g);
+     g.clear();
         System.out.println(g.countSolutions());
     }
 }
