@@ -109,6 +109,13 @@ public class QueenBoard{
     }
     
     public int countSolutions(){
+	for (int i = 0;i < board.length;i++){
+            for (int c = 0;c < board[i].length;c++){
+                if (board[i][c] != 0){
+                    throw new IllegalStateException();
+                }
+            }
+        }
         return countHelper(0,0);
     }
     
@@ -125,7 +132,8 @@ public class QueenBoard{
         }
         return numOfSolutions;
     }
-    
+
+    /*
     public void clear(){
         for (int i = 0;i < board.length; i++){
             for (int c = 0;c < board[i].length;c++){
@@ -133,8 +141,9 @@ public class QueenBoard{
             }
         }
     }
-
-   /* public static void main(String[] args){
+    
+    
+    public static void main(String[] args){
     QueenBoard b = new QueenBoard(4);
 
     System.out.println(b.solve()); //prints true
@@ -163,8 +172,7 @@ public class QueenBoard{
       3 --> 0                      9 --> 352
       4 --> 2                    10 --> 724
       5 --> 10                  11 --> 2680
+      */ /*
+      System.out.println(a); //prints out an empty i by i grid of underscores
       */
-      /*System.out.println(a); //prints out an empty i by i grid of underscores
-}
-    }*/
 }
