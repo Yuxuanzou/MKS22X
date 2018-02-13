@@ -50,15 +50,15 @@ public class QueenBoard{
     }
     
     private void setThreat(int r, int c){
-        for (int col = c + 1;col < board[r].length;col++){
-            board[r][col] += 1;
-        }
-        for (int row = r + 1,col = c + 1;row < board.length && col < board[r].length;row++,col++){
-            board[row][col] += 1;
-        }
-        for (int row = r - 1,col = c + 1;row >= 0 && col < board[r].length;row--,col++){
-            board[row][col] += 1;
-        }
+        for (int i = 1;c + i < board.length;i++){
+            board[r][c + i] += 1;
+            if (r + i <= board.length - 1){
+            board[r + i][c + i] += 1;
+            }
+            if (r - i >= 0){
+            board[r - i][c + i] += 1;
+            }
+    }
     }
 
     private boolean removeQueen(int r, int c){
@@ -71,15 +71,15 @@ public class QueenBoard{
     }
     
     private void removeThreat(int r, int c){
-        for (int col = c + 1;col < board[r].length;col++){
-            board[r][col] -= 1;
-        }
-        for (int row = r + 1,col = c + 1;row < board.length && col < board[r].length;row++,col++){
-            board[row][col] -= 1;
-        }
-        for (int row = r - 1,col = c + 1;row > 0 && col < board[r].length;row--,col++){
-            board[row][col] -= 1;
-        }
+        for (int i = 1;c + i < board.length;i++){
+            board[r][c + i] -= 1;
+            if (r + i <= board.length - 1){
+            board[r + i][c + i] -= 1;
+            }
+            if (r - i >= 0){
+            board[r - i][c + i] -= 1;
+            }
+    }
     }
     
     public boolean solve(){
@@ -114,14 +114,12 @@ public class QueenBoard{
     
     public int countHelper(int r, int c){
 	if (c == board.length){
-	    clear();
-            numOfSolutions += 1;
-        }
+        numOfSolutions += 1;
+        return numOfSolutions;
+    }
         for (int i = 0; i < board.length;i++){
             if (addQueen(i,c)){
-                if (solverHelper(i,c + 1)){
-                    continue;
-                }
+                countHelper(i,c + 1);
                 removeQueen(i,c);
             }
         }
@@ -136,11 +134,37 @@ public class QueenBoard{
         }
     }
 
-    public static void main(String[] args){
-        QueenBoard g = new QueenBoard(7);
-        System.out.println(g.solve());
-     System.out.println(g);
-     g.clear();
-        System.out.println(g.countSolutions());
-    }
+   /* public static void main(String[] args){
+    QueenBoard b = new QueenBoard(4);
+
+    System.out.println(b.solve()); //prints true
+    System.out.println(b); //prints a valid solution
+
+    try{
+      b.solve();
+    }catch(IllegalStateException e){
+      System.out.println("Error: The board contains non-zero values");
+    } //prints "Error: The board contains non-zero values"
+
+    try{
+      b.countSolutions();
+    }catch(IllegalStateException e){
+      System.out.println("Error: The board contains non-zero values");
+    } //prints "Error: The board contains non-zero values"
+
+    for (int i = 0; i < 12; i++){
+      QueenBoard a = new QueenBoard(i);
+      System.out.println("# of Solutions for " + i + ": " + a.countSolutions());
+      /*          Expected Values
+       i --> # of Solutions   i --> # of Solutions
+      0 --> 1                      6 --> 4
+      1 --> 1                      7 --> 40
+      2 --> 0                      8 --> 92
+      3 --> 0                      9 --> 352
+      4 --> 2                    10 --> 724
+      5 --> 10                  11 --> 2680
+      */
+      /*System.out.println(a); //prints out an empty i by i grid of underscores
+}
+    }*/
 }
