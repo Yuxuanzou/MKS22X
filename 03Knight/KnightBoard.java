@@ -21,7 +21,10 @@ public class KnightBoard {
 	String str = "";
 	for (int i = 0;i < board.length;i++){
 	    for (int c = 0;c < board[i].length;c++){
-		if (board[i][c] < 10){
+		if (board[i][c] == 0){
+		    str += "_ ";
+		}
+		else if (board[i][c] < 10 && board[i][c] >= 1){
 		    str += "_" + board[i][c] + " ";
 		}
 		else {
@@ -32,20 +35,31 @@ public class KnightBoard {
 	}
 	return str;
     }
-    
-    public boolean solve(int startingRow, int startingCol){
+
+    public boolean checkBoard(){
 	for (int i = 0; i < board.length;i++){
 	    for (int c = 0; c < board[i].length;c++){
 		if (board[i][c] != 0){
-		    throw new IllegalStateException();
+		    return false;
 		}
 	    }
+	}
+	return true;
+    }
+    
+    public boolean solve(int startingRow, int startingCol){
+	if (startingRow < 0 || startingCol < 0){
+	    throw new IllegalArgumentException();
+	}
+        else if (checkBoard() == false){
+	    throw new IllegalStateException();
 	}
 	return solveHelper(startingRow, startingCol, 1);
     }
 
     public boolean solveHelper(int row,int col,int count){
 	if (count == (maxRow * maxCol)){
+	    board[row][col] = count;
 	    return true;
 	}
 	for (int i = 0;i < x.length;i++){
@@ -60,18 +74,29 @@ public class KnightBoard {
 	    } catch (ArrayIndexOutOfBoundsException e){
 	    }
 	}
+	board[row][col] = count;
 	return false;
+    }
+
+    public void clear(){
+	for (int i = 0;i < board.length;i++){
+	    for (int c = 0;c < board[i].length;c++){
+		board[i][c] = 0;
+	    }
+	}
     }
     
     public int countSolutions(int startingRow, int startingCol){
-	for (int i = 0; i < board.length;i++){
-	    for (int c = 0; c < board[i].length;c++){
-		if (board[i][c] != 0){
-		    throw new IllegalStateException();
-		}
-	    }
+	if (startingRow < 0 || startingCol < 0){
+	    throw new IllegalArgumentException();
 	}
-	return helperCount(startingRow,startingCol,1);
+        else if (checkBoard() == false){
+	    throw new IllegalStateException();
+	}
+	numOfSolutions = 0;
+	numOfSolutions = helperCount(startingRow,startingCol,1);
+	board[startingRow][startingCol] = 0;
+	return numOfSolutions;
     }
 
     public int helperCount(int row,int col, int count){
@@ -91,15 +116,16 @@ public class KnightBoard {
 	}
 	return numOfSolutions;
     }
+    /*
     public static void main(String[] args){
-    KnightBoard a = new KnightBoard(3,3);
+	KnightBoard a = new KnightBoard(3,3);
 
     System.out.println(a);
-    /* Prints
+     Prints
       _ _ _
       _ _ _
       _ _ _
-    */
+
     try{
     for (int i = 0; i < 3; i++){
       for (int j = 0; j < 3; j++){
@@ -150,7 +176,7 @@ public class KnightBoard {
       System.out.println("Error: There cannot be negative parameters in the constructor");
     } //prints "Error: There cannot be negative parameters in the constructor"
 
-    /*try{
+    try{
       KnightBoard b1 = new KnightBoard(5,5);
       b1.solve(0,-1);
     }catch(IllegalArgumentException e){
@@ -170,7 +196,7 @@ public class KnightBoard {
     }catch(IllegalArgumentException e){
       System.out.println("Error: There cannot be negative parameters");
     } //prints "Error: There cannot be negative parameters"
-    */
+    
 
 
     for (int i = 0; i < 5; i++){
@@ -185,7 +211,7 @@ public class KnightBoard {
     int totalSol = 0;
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
-        totalSol += c.countSolutions(i,j);
+	  totalSol += c.countSolutions(i,j);
       }
     }
 
@@ -193,6 +219,5 @@ public class KnightBoard {
 
     KnightBoard d = new KnightBoard(5,5);
     System.out.println(d.countSolutions(0,0)); //prints 304
-   
-  }
+  }*/
 }
