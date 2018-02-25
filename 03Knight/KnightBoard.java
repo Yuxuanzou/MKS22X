@@ -48,7 +48,7 @@ public class KnightBoard {
     }
     
     public boolean solve(int startingRow, int startingCol){
-	if (startingRow < 0 || startingCol < 0){
+        if (startingRow < 0 || startingCol < 0 || startingRow >= board.length || startingCol >= board[0].length){
 	    throw new IllegalArgumentException();
 	}
         else if (checkBoard() == false){
@@ -87,7 +87,7 @@ public class KnightBoard {
     }
     
     public int countSolutions(int startingRow, int startingCol){
-	if (startingRow < 0 || startingCol < 0){
+	if (startingRow < 0 || startingCol < 0 || startingRow >= board.length || startingCol >= board[0].length){
 	    throw new IllegalArgumentException();
 	}
         else if (checkBoard() == false){
@@ -116,6 +116,7 @@ public class KnightBoard {
 	}
 	return numOfSolutions;
     }
+
     /*
     public static void main(String[] args){
 	KnightBoard a = new KnightBoard(3,3);
