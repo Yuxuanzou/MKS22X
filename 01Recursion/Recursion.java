@@ -10,7 +10,7 @@ public class Recursion {
         else if (n == 0){
             return 1;
         }
-        return fact(n - 1) + n;
+        return fact(n - 1) * n;
     }
     
     public int fib(int n){
