@@ -1,15 +1,16 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
 
 public class Maze {
     private char[][] Maze;
     private int col;
     private int row;
+    private boolean animate;
+    private int xcorOfS;
+    private int ycorOfS;
 
     public Maze(String file){
+	animate = false;
 	try {
 	    File f = new File(file);
 	    Scanner in = new Scanner(f);
@@ -24,12 +25,15 @@ public class Maze {
 	    while (out.hasNext()){
 		String outLine = out.nextLine();
 		for (int c = 0;c < outLine.length();c++){
+		    if (Maze[r][c] == 'S'){
+			xcorOfS = c;
+			ycorOfS = r;
+		    }
 		    Maze[r][c] = outLine.charAt(c);
 		}
 		r += 1;
 	    }
 	} catch (FileNotFoundException e){
-
 	}
     }
 
@@ -43,8 +47,28 @@ public class Maze {
 	}
 	return str;
     }
-    public static void main(String[] args){
-	Maze g = new Maze("Maze1.txt");
-	System.out.println(g);
+    
+    private void wait(int millis){
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
+
+    public void setAnimate(boolean b){	
+	animate = b;
+    }
+    
+    public void clearTerminal(){
+	//erase terminal, go to top left of screen.
+	System.out.println("\033[2J\033[1;1H");
+    }
+    
+    public static void main(String[]args){
+        Maze f;
+        f = new Maze("Maze1.txt");//true animates the maze.
+
+        System.out.println(f);
     }
 }
