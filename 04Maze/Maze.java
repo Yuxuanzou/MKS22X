@@ -8,9 +8,13 @@ public class Maze {
     private boolean animate;
     private int xcorOfS;
     private int ycorOfS;
+    private int[] xMoves;
+    private int[] yMoves;
 
-    public Maze(String file){
+    public Maze(String file) {
 	animate = false;
+	xMoves = new int[] {0,0,1,-1};
+	yMoves = new int[] {1,-1,0,0};
 	try {
 	    File f = new File(file);
 	    Scanner in = new Scanner(f);
@@ -63,6 +67,25 @@ public class Maze {
     public void clearTerminal(){
 	//erase terminal, go to top left of screen.
 	System.out.println("\033[2J\033[1;1H");
+    }
+
+    public int solve(){
+	
+    }
+
+    private int solve(int row, int col,int numOfMoves){
+	if (Maze[row][col] == 'E'){
+	    return numOfMoves;
+	}
+	for (int i = 0;i < 4;i++){
+	    board[row][col] = '@';
+	    try{
+		if (board[row + xMoves[i]][col + yMoves[i]]){
+		    solve(row + xMoves[i],col + yMoves[i],numOfMoves + 1);
+		}
+	}
+	    
+	
     }
     
     public static void main(String[]args){
