@@ -8,39 +8,44 @@ public class Maze {
     private boolean animate;
     private int xcorOfS;
     private int ycorOfS;
+    private int eCor;
     private int[] xMoves;
     private int[] yMoves;
 
-    public Maze(String file) {
+    public Maze(String file) throws FileNotFoundException{
 	animate = false;
 	xMoves = new int[] {0,0,1,-1};
 	yMoves = new int[] {1,-1,0,0};
-	try {
-	    File f = new File(file);
-	    Scanner in = new Scanner(f);
-	    while (in.hasNext()){
-		String line = in.nextLine();
-	        row += 1;
-		col = line.length();
-	    }
-	    Maze = new char[row][col];
-	    Scanner out = new Scanner(f);
-	    int r = 0;
-	    while (out.hasNext()){
-		String outLine = out.nextLine();
-		for (int c = 0;c < outLine.length();c++){
-		    if (Maze[r][c] == 'S'){
-			xcorOfS = c;
-			ycorOfS = r;
-		    }
-		    Maze[r][c] = outLine.charAt(c);
+	File f = new File(file);
+	Scanner in = new Scanner(f);
+	while (in.hasNext()){
+	    String line = in.nextLine();
+	    row += 1;
+	    col = line.length();
+	}
+	Maze = new char[row][col];
+	Scanner out = new Scanner(f);
+	int r = 0;
+	while (out.hasNext()){
+	    String outLine = out.nextLine();
+	    for (int c = 0;c < outLine.length();c++){
+		if (outLine.charAt(c) == 'S'){
+		    xcorOfS = c;
+		    ycorOfS = r;
 		}
-		r += 1;
+		else if (outLine.charAt(c) == 'E'){
+		    eCor = c;
+		}
+		Maze[r][c] = outLine.charAt(c);
 	    }
-	} catch (FileNotFoundException e){
+	    r += 1;
+	}
+	if (eCor == 0 || xcorOfS == 0){
+	    throw new IllegalStateException();
 	}
     }
-
+    
+    
     public String toString(){
 	String str = "";
 	for (int i = 0;i < row;i++){
@@ -70,7 +75,7 @@ public class Maze {
     }
 
     public int solve(){
-	
+	return solve(ycorOfS,xcorOfS,0);
     }
 
     private int solve(int row, int col,int numOfMoves){
@@ -78,20 +83,26 @@ public class Maze {
 	    return numOfMoves;
 	}
 	for (int i = 0;i < 4;i++){
-	    board[row][col] = '@';
-	    try{
-		if (board[row + xMoves[i]][col + yMoves[i]]){
-		    solve(row + xMoves[i],col + yMoves[i],numOfMoves + 1);
+	    if (Maze[row + xMoves[i]][col + yMoves[i]] == ' ' || Maze[row + xMoves[i]][col + yMoves[i]] == 'E'){
+		Maze[row][col] = '@';
+		int nums = solve(row + xMoves[i],col + yMoves[i],numOfMoves + 1);
+		if (nums != -1){
+		    return nums;
 		}
+	    }
+	    Maze[row][col] = '.';
 	}
-	    
-	
+	return -1;
     }
     
     public static void main(String[]args){
         Maze f;
+	try {
         f = new Maze("Maze1.txt");//true animates the maze.
-
+	System.out.println(f.solve());
         System.out.println(f);
+	f.solve();
+	} catch (FileNotFoundException e){
+	}
     }
 }
