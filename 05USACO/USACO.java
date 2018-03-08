@@ -6,7 +6,7 @@ public class USACO{
 
     }
 
-    public static int bronze(String filename) throws FileNotFoundException{
+    public static int bronze(String filename){
 	File f = new File(filename);
 	Scanner in = new Scanner(f);
 	String line = in.nextLine();
@@ -21,15 +21,13 @@ public class USACO{
 		board[i][c] = Integer.parseInt(in.next());
 	    }
 	}
-	while (in.hasNext()){
-	    int[] rowStomp = new int[9];
-	    int[] colStomp = new int[9];
-	    String L = in.nextLine();
-	    String[] skrt = line.split(" ");
-	    int r_s = Integer.parseInt(skrt[0]);
-	    int c_s = Integer.parseInt(skrt[1]);
-	    int stomp = Integer.parseInt(skrt[2]);
+	while (numOfMoves != 0){
+	    int r_s = Integer.parseInt(in.next()) - 1;
+	    int c_s = Integer.parseInt(in.next()) - 1;
+	    int stomp = Integer.parseInt(in.next());
 	    int max = 0;
+	    System.out.println(r_s);
+	    System.out.println(c_s);
 	    try {
 		for (int i = 0;i < 3;i++){
 		    for (int c = 0;c < 3;c++){
@@ -37,39 +35,60 @@ public class USACO{
 		    }
 		}
 	    } catch (ArrayIndexOutOfBoundsException e){}
+	    System.out.println(max);
 	    stomp(r_s,c_s,board,max,stomp);
+	    numOfMoves -= 1;
+	    System.out.println(toString(board));
 	}
 	int totalDepth = 0;
 	for (int i = 0;i < board.length;i++){
 	    for (int c = 0;c < board[i].length;c++){
-		totalDepth += board[i][c];
+		int h = waterLevel - board[i][c];
+		if (h > 0){
+		    totalDepth += h;
+		}
 	    }
 	}
 	
-	return totalDepth;
+	return totalDepth * 72 * 72;
+    }
+    
+    public static String toString(int[][] b){
+	String str = "";
+	for (int i = 0;i < b.length;i++){
+	    for (int c = 0;c < b[i].length;c++){
+		str += b[i][c];
+		str += " ";
+	    }
+	    str += "\n";
+	}
+	return str;
     }
 
+    public static String daOne(String[] b){
+	String str = "";
+	for (int i = 0;i < b.length;i++){
+	    str += b[i];
+	    str += " ";
+	}
+	return str;
+    }
+    
     public static void stomp(int r,int c,int[][] board,int max,int stompNum){
-	try {
-	    for (int i = 0;i < 3;i++){
-		for (int d = 0;d < 3;d++){
-		    int skrt = board[r + i][c + d];
-		    if (skrt > max - stompNum){
-			skrt = max - stompNum;
-		    }
+	for (int i = 0;i < 3;i++){
+	    for (int d = 0;d < 3;d++){
+		if (board[r + i][c + d] > (max - stompNum)){
+		    board[r+ i][c + d] = (max - stompNum);
 		}
 	    }
-	} catch (ArrayIndexOutOfBoundsException e){
 	}
-    }
+    } 
     
     public static int silver(String filename){
 	return 0;
     }
 
     public static void main(String[] args){
-	try{
-	    System.out.println(USACO.bronze("makelake.in"));
-	}catch(FileNotFoundException e){}
+        System.out.println(bronze("makelake.in"));
     }
 }
