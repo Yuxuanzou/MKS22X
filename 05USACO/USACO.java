@@ -6,7 +6,7 @@ public class USACO{
 
     }
 
-    public static int bronze(String filename){
+    public static int bronze(String filename) throws FileNotFoundException{
 	File f = new File(filename);
 	Scanner in = new Scanner(f);
 	String line = in.nextLine();
@@ -53,7 +53,7 @@ public class USACO{
 	return totalDepth * 72 * 72;
     }
     
-    public static String toString(int[][] b){
+    public static String toString(char[][] b){
 	String str = "";
 	for (int i = 0;i < b.length;i++){
 	    for (int c = 0;c < b[i].length;c++){
@@ -84,11 +84,26 @@ public class USACO{
 	}
     } 
     
-    public static int silver(String filename){
+    public static int silver(String filename) throws FileNotFoundException{
+        File f = new File(filename);
+	Scanner in = new Scanner(f);
+	String[] skrt = in.nextLine().split(" ");
+	int row = Integer.parseInt(skrt[0]);
+	int col = Integer.parseInt(skrt[1]);
+	int numOfMoves = Integer.parseInt(skrt[2]);
+	char[][] board = new char[row][col];
+	for (int i = 0;i < row;i++){
+	    for (int c = 0;c < col;c++){
+		board[i][c] = in.next().charAt(0);
+	    }
+	}
+	System.out.println(toString(board));
 	return 0;
     }
 
     public static void main(String[] args){
-        System.out.println(bronze("makelake.in"));
+	try {
+	    silver("silver1.txt");
+	}catch(FileNotFoundException e){}
     }
 }
