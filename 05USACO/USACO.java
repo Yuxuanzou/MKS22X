@@ -35,10 +35,8 @@ public class USACO{
 		    }
 		}
 	    } catch (ArrayIndexOutOfBoundsException e){}
-	    System.out.println(max);
 	    stomp(r_s,c_s,board,max,stomp);
 	    numOfMoves -= 1;
-	    System.out.println(toString(board));
 	}
 	int totalDepth = 0;
 	for (int i = 0;i < board.length;i++){
@@ -93,12 +91,50 @@ public class USACO{
 	int numOfMoves = Integer.parseInt(skrt[2]);
 	char[][] board = new char[row][col];
 	for (int i = 0;i < row;i++){
+	    String line = in.nextLine();
 	    for (int c = 0;c < col;c++){
-		board[i][c] = in.next().charAt(0);
+		board[i][c] = line.charAt(c);
 	    }
 	}
-	System.out.println(toString(board));
+	String[] cords = in.nextLine().split(" ");
+	int r1 = Integer.parseInt(cords[0]);
+	int c1 = Integer.parseInt(cords[1]);
+	int r2 = Integer.parseInt(cords[2]);
+	int c2 = Integer.parseInt(cords[3]);
+	int[][] helperBoard = new int[row][col];
+	int[][] helper2Board = new int[row][col];
+	for (int i = 0;i < row;i++){
+	    for (int c = 0;c < col;c++){
+		if (board[i][c] == '*'){
+		    helperBoard[i][c] = -1;
+		}
+		else if (i == (r1 - 1) && c == (c1 - 1)){
+		    board[i][c] = 1;
+		}
+		board[i][c] = 0;
+	    }
+	}
+	for (int m = 0;m < numOfMoves;m++){
+	    for (int i = 0;i < row;i++){
+		for (int c = 0;c < col;c++){
+		    
+		}
+	    }
+	}
 	return 0;
+    }
+
+    private static int sumN(int row,int col,int[][] board){
+	int sum = 0;
+	int[] x = new int[]{0,0,-1,1};
+	int[] y = new int[]{-1,1,0,0};
+	try{
+	    for (int i = 0;i < 4;i++){
+		sum += board[row + y[i]][col + x[i]];
+	    }
+	} catch (ArrayIndexOutOfBoundsException e){
+	}
+	return sum;
     }
 
     public static void main(String[] args){
