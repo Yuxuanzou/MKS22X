@@ -51,7 +51,7 @@ public class USACO{
 	return totalDepth * 72 * 72;
     }
     
-    public static String toString(char[][] b){
+    public static String toString(int[][] b){
 	String str = "";
 	for (int i = 0;i < b.length;i++){
 	    for (int c = 0;c < b[i].length;c++){
@@ -80,9 +80,9 @@ public class USACO{
 		}
 	    }
 	}
-    } 
-    
-    public static int silver(String filename) throws FileNotFoundException{
+    }
+
+    public static int silver(String filename)throws FileNotFoundException{
         File f = new File(filename);
 	Scanner in = new Scanner(f);
 	String[] skrt = in.nextLine().split(" ");
@@ -107,39 +107,58 @@ public class USACO{
 	    for (int c = 0;c < col;c++){
 		if (board[i][c] == '*'){
 		    helperBoard[i][c] = -1;
+		    helper2Board[i][c] = -1;
 		}
 		else if (i == (r1 - 1) && c == (c1 - 1)){
-		    board[i][c] = 1;
+		    helperBoard[i][c] = 1;
+		    helper2Board[i][c] = 1;
 		}
-		board[i][c] = 0;
+		else {
+		    helperBoard[i][c] = 0;
+		    helper2Board[i][c] = 0;
+		}
 	    }
 	}
 	for (int m = 0;m < numOfMoves;m++){
 	    for (int i = 0;i < row;i++){
 		for (int c = 0;c < col;c++){
-		    
+		    helperBoard[i][c] =  helper2Board[i][c];
+		}
+	    }
+	    for (int i = 0;i < row;i++){
+		for (int c = 0;c < col;c++){
+		    try{
+			if (helper2Board[i][c] != -1){
+			    helper2Board[i][c] = sumN(i,c,helperBoard);
+			}
+		    }catch (ArrayIndexOutOfBoundsException e){
+		    }
 		}
 	    }
 	}
-	return 0;
+	return  helper2Board[r2 - 1][c2 - 1];
     }
 
-    private static int sumN(int row,int col,int[][] board){
-	int sum = 0;
-	int[] x = new int[]{0,0,-1,1};
-	int[] y = new int[]{-1,1,0,0};
-	try{
-	    for (int i = 0;i < 4;i++){
-		sum += board[row + y[i]][col + x[i]];
+    private static int sumN(int x, int y, int[][] board){
+	int[] row = new int[]{0,0,1,-1};
+	int[] col = new int[]{-1,1,0,0};
+        int sum = 0;
+	for (int i = 0;i < 4;i++){
+	    if (isValid(x + row[i],y + col[i],board)){
+		sum += board[x + row[i]][y + col[i]];
 	    }
-	} catch (ArrayIndexOutOfBoundsException e){
 	}
-	return sum;
+        return sum;
+    }
+
+    private static boolean isValid(int x, int y, int[][] board){
+        return !(x < 0 || x >= board.length || y < 0 || y >= board[0].length || board[x][y] == -1);
     }
 
     public static void main(String[] args){
-	try {
-	    silver("silver1.txt");
+	try{
+	    int b = silver("silver1.txt");
+	    System.out.println(b);
 	}catch(FileNotFoundException e){}
     }
 }
