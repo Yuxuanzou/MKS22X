@@ -6,8 +6,9 @@ public class USACO{
 
     }
 
-    public static int bronze(String filename) throws FileNotFoundException{
+    public static int bronze(String filename){
 	File f = new File(filename);
+	try {
 	Scanner in = new Scanner(f);
 	String line = in.nextLine();
 	String[] ary = line.split(" ");
@@ -26,8 +27,6 @@ public class USACO{
 	    int c_s = Integer.parseInt(in.next()) - 1;
 	    int stomp = Integer.parseInt(in.next());
 	    int max = 0;
-	    System.out.println(r_s);
-	    System.out.println(c_s);
 	    try {
 		for (int i = 0;i < 3;i++){
 		    for (int c = 0;c < 3;c++){
@@ -47,8 +46,11 @@ public class USACO{
 		}
 	    }
 	}
-	
 	return totalDepth * 72 * 72;
+	} catch (FileNotFoundException e){
+	    System.exit(1);
+	}
+	return -1;
     }
     
     public static String toString(int[][] b){
@@ -82,8 +84,9 @@ public class USACO{
 	}
     }
 
-    public static int silver(String filename)throws FileNotFoundException{
+    public static int silver(String filename){
         File f = new File(filename);
+	try {
 	Scanner in = new Scanner(f);
 	String[] skrt = in.nextLine().split(" ");
 	int row = Integer.parseInt(skrt[0]);
@@ -137,6 +140,10 @@ public class USACO{
 	    }
 	}
 	return  helper2Board[r2 - 1][c2 - 1];
+	} catch (FileNotFoundException e){
+	    System.exit(1);
+	}
+	return -1;
     }
 
     private static int sumN(int x, int y, int[][] board){
@@ -155,10 +162,13 @@ public class USACO{
         return !(x < 0 || x >= board.length || y < 0 || y >= board[0].length || board[x][y] == -1);
     }
 
+    /*
     public static void main(String[] args){
-	try{
+
 	    int b = silver("silver1.txt");
 	    System.out.println(b);
-	}catch(FileNotFoundException e){}
+	    System.out.println(bronze("makelake.in.txt"));
     }
+    */
+
 }
