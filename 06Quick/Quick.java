@@ -6,19 +6,24 @@ public class Quick{
 	int pivotIndex = rand.nextInt(end - start) + start;
 	int pivot = data[pivotIndex];
 	swap(data,pivotIndex,start);
-	int small = start + 1;
-	int large = end;
-	while (small <= large){
-	    if (data[small] < pivot){
-		small++;
+	int lt = start;
+	int gt = end;
+	int i = start + 1
+	while (i <= gt){
+	    if (data[i] == pivot){
+		i++;
 	    }
-	    else{
-		swap(data,small,large);
-		large--;
+	    else if (data[i] > pivot){
+		swap(data,i,gt);
+		gt--;
+	    }
+	    else {
+		swap(data,i,lt);
+		i++;
+		lt++;
 	    }
 	}
-	swap(data,start,large);
-	return large;
+	partition(data,start,
     }
 
     public static String toString(int[] b){
