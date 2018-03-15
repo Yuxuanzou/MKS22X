@@ -3,16 +3,16 @@ import java.util.*;
 public class Quick{
     public static int partition(int[] data,int start,int end){
 	Random rand = new Random();
-	int pivotIndex = rand.nextInt(end) + 1;
+	int pivotIndex = rand.nextInt(end - start) + start;
 	int pivot = data[pivotIndex];
-	swap(data,pivotIndex,0);
+	swap(data,pivotIndex,start);
 	int small = start + 1;
 	int large = end;
 	while (small <= large){
-	    if (data[small] <= pivot){
+	    if (data[small] < pivot){
 		small++;
 	    }
-	    else if (data[small] > pivot){
+	    else{
 		swap(data,small,large);
 		large--;
 	    }
@@ -52,25 +52,23 @@ public class Quick{
 	return data[pivotIndex];
     }
 
-    /*public static void quicksort(int[] ary){
+    public static void quicksort(int[] ary){
 	quicksortHelp(ary,0,ary.length - 1);
     }
 
     public static void quicksortHelp(int[] ary,int start,int end){
-        int pivot = partition(ary,start,end);
         if (start < end){
-	    if (pivot + 1 <= end){
-		quicksortHelp(ary,pivot + 1,end);
-	    }
-	    if (pivot - 1 >= start){
-		quicksortHelp(ary,start,pivot - 1);
-	    }
+	    int pivot = partition(ary,start,end);
+	    quicksortHelp(ary,pivot + 1,end);
+	    quicksortHelp(ary,start,pivot - 1);
 	}
 	}
-
+    /*
     public static void main(String[] args){
 	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999};
-        quicksort(ary);
+	System.out.println(quickselect(ary,2));
+			   //quicksort(ary);
 	System.out.println(toString(ary));
-	}*/
+	}
+    */
 }
