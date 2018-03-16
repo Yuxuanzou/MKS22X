@@ -8,7 +8,7 @@ public class Quick{
 	swap(data,pivotIndex,start);
 	int lt = start;
 	int gt = end;
-	int i = start + 1
+	int i = start + 1;
 	while (i <= gt){
 	    if (data[i] == pivot){
 		i++;
@@ -23,7 +23,9 @@ public class Quick{
 		lt++;
 	    }
 	}
-	partition(data,start,
+	partition(data,start,lt - 1);
+	partition(data,i,end);
+	return gt;
     }
 
     public static String toString(int[] b){
@@ -68,12 +70,33 @@ public class Quick{
 	    quicksortHelp(ary,start,pivot - 1);
 	}
 	}
-    /*
-    public static void main(String[] args){
+    
+    /*public static void main(String[] args){
 	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999};
 	System.out.println(quickselect(ary,2));
 			   //quicksort(ary);
 	System.out.println(toString(ary));
 	}
     */
+    public static void main(String[] args){
+	try{
+	    int[] test = new int[Integer.parseInt(args[0])];
+	    for(int i =0; i < test.length; i++){
+		Random seed= new Random();
+		int num=seed.nextInt((Integer.parseInt(args[1])));
+		if(seed.nextBoolean()){
+		    num*=-1;
+		}
+		test[i]=num;
+
+	    }
+	    System.out.println("Before:"+"\n"+toString(test));
+	    System.out.println(partition(test, 0, test.length-1));
+	    System.out.println("After:"+"\n"+toString(test));
+	}
+	catch(Exception IndexOutOfBounds){
+	    System.out.println("After the file name insert the size of the array and the bounds for the numbers in the array"+"\n"+"EX: FileName 10 200"+"\n"+"Would give an array of size 10 with numbers ranging from -200 to 200");
+	}
+    
+    }
 }
