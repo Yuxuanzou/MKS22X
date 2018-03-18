@@ -2,13 +2,16 @@ import java.util.*;
 
 public class Quick{
     public static int partition(int[] data,int start,int end){
+	if (start >= end){
+	    return end;
+	}
 	Random rand = new Random();
 	int pivotIndex = rand.nextInt(end - start) + start;
 	int pivot = data[pivotIndex];
 	swap(data,pivotIndex,start);
 	int lt = start;
 	int gt = end;
-	int i = start + 1;
+	int i = start;
 	while (i <= gt){
 	    if (data[i] == pivot){
 		i++;
@@ -23,9 +26,10 @@ public class Quick{
 		lt++;
 	    }
 	}
-	partition(data,start,lt - 1);
-	partition(data,i,end);
-	return gt;
+        if (lt > 0){
+	    return partition(data,start,lt - 1);
+	}
+	return partition(data,gt + 1,end);
     }
 
     public static String toString(int[] b){
@@ -47,16 +51,8 @@ public class Quick{
     }
 
     public static int quickHelp(int[] data,int k,int start,int end){
-	int pivotIndex = partition(data,start,end);
-        while (pivotIndex != k){
-	    if (pivotIndex > k){
-	        return quickHelp(data,k,start,pivotIndex - 1);
-	    }
-	    if (pivotIndex < k){
-		return quickHelp(data,k,pivotIndex + 1,end);
-	    }
-	}
-	return data[pivotIndex];
+        int pivotIndex = partition(data,start,end);
+	return data[k];
     }
 
     public static void quicksort(int[] ary){
@@ -64,39 +60,16 @@ public class Quick{
     }
 
     public static void quicksortHelp(int[] ary,int start,int end){
-        if (start < end){
-	    int pivot = partition(ary,start,end);
-	    quicksortHelp(ary,pivot + 1,end);
-	    quicksortHelp(ary,start,pivot - 1);
-	}
+        int p = partition(ary,start,end);
+	return;
 	}
     
-    /*public static void main(String[] args){
-	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999};
-	System.out.println(quickselect(ary,2));
-			   //quicksort(ary);
-	System.out.println(toString(ary));
-	}
-    */
     public static void main(String[] args){
-	try{
-	    int[] test = new int[Integer.parseInt(args[0])];
-	    for(int i =0; i < test.length; i++){
-		Random seed= new Random();
-		int num=seed.nextInt((Integer.parseInt(args[1])));
-		if(seed.nextBoolean()){
-		    num*=-1;
-		}
-		test[i]=num;
-
-	    }
-	    System.out.println("Before:"+"\n"+toString(test));
-	    System.out.println(partition(test, 0, test.length-1));
-	    System.out.println("After:"+"\n"+toString(test));
-	}
-	catch(Exception IndexOutOfBounds){
-	    System.out.println("After the file name insert the size of the array and the bounds for the numbers in the array"+"\n"+"EX: FileName 10 200"+"\n"+"Would give an array of size 10 with numbers ranging from -200 to 200");
-	}
-    
+	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
+	System.out.println(quickselect(ary,0));
+	//quicksort(ary);
+	System.out.println(toString(ary));
     }
+    
 }
+
