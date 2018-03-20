@@ -1,26 +1,34 @@
 public class merge{
-    public static void murge(int[] data,int start,int end){
-	int[] L = new int[(end - start) / 2];
-	int[] R = new int[(end - start) / 2];
-	int LCount = 0;
-	int RCount = 0;
-	for (int i = start;i < end;i++){
-	    if(i < (start + end) / 2){
-	        L[LCount] = data[i];
-	    }
-	    R[RCount] = data[i];
+    public static void mergesort(int[] data){
+	
+    }
+    
+    public static void msort(int[] data,int[] temp,int lo,int hi){
+	if (lo >= hi){
+	    return;
 	}
-	LCount = 0;
-	RCount = 0;
-	for (int i = start;i < end;i ++){
-	    if (L[LCount] <= R[RCount]){
-		data[i] = L[LCount];
-		LCount++;
-	    }
-	    else {
-		data[i] = R[RCount];
-		RCount++;
+	for (int i = lo;i < hi;i++){
+	    temp[i] = data[i];
+	}
+	int mid = (hi + lo) / 2;
+	msort(temp,data,lo,mid);
+	msort(temp,data,mid + 1,hi);
+	merge(data,temp,lo,mid,mid + 1,hi);
+    }
+    
+    public static void merge(int[] data,int[] temp,int lo,int mid,int midPlusOne,int hi){
+        int end = hi;
+	int low = lo;
+	for (int i = low + 1;i < mid;i++){
+	    if (temp[i] < temp[i - 1]){
+		
 	    }
 	}
+    }
+
+    public static void swap(int data,int lo,int hi){
+	int temp = data[lo];
+	data[lo] = data[hi];
+	data[hi] = temp;
     }
 }
