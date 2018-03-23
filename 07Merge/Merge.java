@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class merge{
+public class Merge{
     public static void mergesort(int[] data){
 	int[] temp = new int[data.length];
 	for (int i = 0;i < data.length;i++){
