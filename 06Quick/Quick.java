@@ -90,9 +90,9 @@ public class Quick{
 	}
 	quicksortHelp(data,gt + 1,end);
 	}
-
+    /*
      //Sort testing code
-  private static final int INCREASE = 0;
+    private static final int INCREASE = 0;
   private static final int DECREASE = 1;
   private static final int STANDARD = 2;
   private static final int SMALL_RANGE = 3;
@@ -155,9 +155,8 @@ public class Quick{
     Arrays.sort(result);
     
     long startTime = System.currentTimeMillis();
-    /*
-     * Test your sort here!
-     */
+    
+     
     long elapsedTime = System.currentTimeMillis() - startTime;
     if(Arrays.equals(start,result)){
       System.out.println("PASS Case "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
