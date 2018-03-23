@@ -1,6 +1,11 @@
+import java.util.*;
+
 public class merge{
     public static void mergesort(int[] data){
 	int[] temp = new int[data.length];
+	for (int i = 0;i < data.length;i++){
+	    temp[i] = data[i];
+	}
 	msort(data,temp,0,data.length - 1);
     }
     
@@ -8,22 +13,16 @@ public class merge{
 	if (lo >= hi){
 	    return;
 	}
-	for (int i = lo;i < hi;i++){
-	    temp[i] = data[i];
-	}
 	int mid = (hi + lo) / 2;
 	msort(temp,data,lo,mid);
-	System.out.println(toString(data));
 	msort(temp,data,mid + 1,hi);
-	System.out.println(toString(temp));
 	merge(data,temp,lo,mid,mid + 1,hi);
-	System.out.println(toString(data));
     }
     
     public static void merge(int[] data,int[] temp,int lo,int mid,int midPlusOne,int hi){
 	int low = lo;
 	int high = hi;
-	int count = 0;
+	int count = lo;
         while(lo <= mid && midPlusOne <= hi && count < temp.length){
 	    if(data[lo] <= data[midPlusOne]){
 		temp[count] = data[lo];
@@ -60,7 +59,7 @@ public class merge{
     }
     
     public static void main(String[] args){
-	//int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
+       //int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
 	int[] ary = new int[]{3,10,-1,0,-10,2};
 	mergesort(ary);
 	System.out.println(toString(ary));
