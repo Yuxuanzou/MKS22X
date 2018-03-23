@@ -86,10 +86,43 @@ public class Quick{
 	    }
 	}
         if (lt > 0){
-	    quicksortHelp(data,start,lt - 1);
+	    if((lt - start - 1) < 30){
+		insertionSort(data,start,lt - 1);
+	    }else{
+		quicksortHelp(data,start,lt - 1);
+	    }
 	}
-	quicksortHelp(data,gt + 1,end);
+	if (end - (gt + 1) < 30){
+	    insertionSort(data,gt + 1,end);
 	}
+	else{
+	    quicksortHelp(data,gt + 1,end);
+	}
+    }
+    
+    public static void insertionSort(int [] data,int lo,int hi){
+       int index;
+       int num;
+	   for (int i = lo;i < hi;i++){
+           index = i;
+           num = data[i];
+           for (int c = index; c > lo; c--){
+                if (num < data[c-1]){
+                    data[index] = data[c - 1];
+                    index = index - 1;
+                    data[index] = num;
+		}
+           }
+	   }
+    }
+
+    public static void main(String[] args){
+	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
+	//System.out.println(quickselect(ary,0));
+	quicksort(ary);
+	System.out.println(toString(ary));
+    }
+}
     /*
      //Sort testing code
     private static final int INCREASE = 0;
@@ -165,17 +198,16 @@ public class Quick{
     }
   }
     
-    /*public static void main(String[] args){
+    public static void main(String[] args){
 	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
 	//System.out.println(quickselect(ary,0));
 	quicksort(ary);
 	System.out.println(toString(ary));
-	}*/
+	}
 
     /* public static void main(String[] args){
 	int[] test = {1000, 999,999,999,4,1,0,3,2,999,999,100,100,-10000, 10212, -19212, 23, 12};
 	quicksort(test);
 	System.out.println(toString(test));
 	}*/
-}
 
