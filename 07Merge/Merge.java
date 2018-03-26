@@ -45,7 +45,7 @@ public class Merge{
 	    midPlusOne++;
 	    count++;
 	}
-	for (int i = low;i < high;i++){
+	for (int i = low;i < high + 1;i++){
 	    data[i] = temp[i];
 	}
     }
@@ -57,11 +57,13 @@ public class Merge{
 	}
 	return str;
     }
+
     
-    public static void main(String[] args){
+    /*public static void main(String[] args){
        //int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
-	int[] ary = new int[]{3,10,-1,0,-10,2};
+	int[] ary = new int[]{3,10,-1,0,-10,2,10,3,0,91,-21,-3};
 	mergesort(ary);
 	System.out.println(toString(ary));
-    }
+	}
+    */
 }
