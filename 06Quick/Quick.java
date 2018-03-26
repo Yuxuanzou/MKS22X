@@ -92,7 +92,7 @@ public class Quick{
 		quicksortHelp(data,start,lt - 1);
 	    }
 	}
-	if (end - (gt + 1) < 30){
+	if (end - (gt + 1) < 8){
 	    insertionSort(data,gt + 1,end);
 	}
 	else{
@@ -116,12 +116,13 @@ public class Quick{
 	   }
     }
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
 	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
 	//System.out.println(quickselect(ary,0));
 	quicksort(ary);
 	System.out.println(toString(ary));
     }
+    */
 }
     /*
      //Sort testing code
