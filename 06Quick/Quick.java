@@ -2,11 +2,18 @@ import java.util.*;
 import java.util.Arrays;
  
 public class Quick{
-    public static int partition(int[] data,int start,int end){
-	if (start >= end){
-	    return end;
-	}
-	Random rand = new Random();
+    public static void swap(int[] data,int start,int end){
+	int temp = data[start];
+	data[start] = data[end];
+	data[end] = temp;
+    }
+
+    public static int quickselect(int[] data,int k){
+	return quickHelp(data,k,0,data.length - 1);
+    }
+
+    public static int quickHelp(int[] data,int k,int start,int end){
+        Random rand = new Random();
 	int pivotIndex = rand.nextInt(end - start) + start;
 	int pivot = data[pivotIndex];
 	swap(data,pivotIndex,start);
@@ -27,40 +34,20 @@ public class Quick{
 		lt++;
 	    }
 	}
-        if (lt > 0){
-	    return partition(data,start,lt - 1);
+        if (k > gt){
+	    return quickHelp(data,k,gt,end);
 	}
-	return partition(data,gt + 1,end);
-    }
-
-    public static String toString(int[] b){
-	String str = "";
-	for (int i = 0;i < b.length;i++){
-	    str += b[i] + " " ;
+	else if (k < lt){
+	    return quickHelp(data,k,start,lt);
 	}
-	return str;
-    }
-
-    public static void swap(int[] data,int start,int end){
-	int temp = data[start];
-	data[start] = data[end];
-	data[end] = temp;
-    }
-
-    public static int quickselect(int[] data,int k){
-	return quickHelp(data,k,0,data.length - 1);
-    }
-
-    public static int quickHelp(int[] data,int k,int start,int end){
-        int pivotIndex = partition(data,start,end);
-	return data[k];
+	return pivot;
     }
 
     public static void quicksort(int[] data){
 	quicksortHelp(data,0,data.length - 1);
     }
 
-    public static void quicksortHelp(int[] data,int start,int end){
+     public static void quicksortHelp(int[] data,int start,int end){
         if (start >= end){
 	    return;
 	}
@@ -86,43 +73,18 @@ public class Quick{
 	    }
 	}
         if (lt > 0){
-	    if((lt - start - 1) < 30){
-		insertionSort(data,start,lt - 1);
-	    }else{
-		quicksortHelp(data,start,lt - 1);
-	    }
+	    quicksortHelp(data,start,lt - 1);
 	}
-	if (end - (gt + 1) < 8){
-	    insertionSort(data,gt + 1,end);
-	}
-	else{
-	    quicksortHelp(data,gt + 1,end);
-	}
-    }
-    
-    public static void insertionSort(int [] data,int lo,int hi){
-       int index;
-       int num;
-	   for (int i = lo;i < hi;i++){
-           index = i;
-           num = data[i];
-           for (int c = index; c > lo; c--){
-                if (num < data[c-1]){
-                    data[index] = data[c - 1];
-                    index = index - 1;
-                    data[index] = num;
-		}
-           }
-	   }
-    }
+	quicksortHelp(data,gt + 1,end);
+     }
 
-    /*public static void main(String[] args){
-	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
-	//System.out.println(quickselect(ary,0));
-	quicksort(ary);
-	System.out.println(toString(ary));
-    }
-    */
+    public static String toString(int[] b){
+	String str = "";
+	for (int i = 0;i < b.length;i++){
+	    str += b[i] + " " ;
+	}
+	return str;
+    }    
 }
     /*
      //Sort testing code
