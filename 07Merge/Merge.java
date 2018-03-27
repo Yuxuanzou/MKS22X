@@ -59,7 +59,7 @@ public class Merge{
     }
 
     
-    public static void main(String[] args){
+    /*public static void main(String[] args){
        int[] a = new int[]{999,999,999,4,1,0,3,2,999,999,999,0,-1,32};
 	int[] ary = new int[]{3,10,-1,0,-10,2,10,3,0,91,-21,-3};
 	int[] b = {7,7,6,6,5,5,4,4,9,9,90,90,-1,-1};
@@ -74,6 +74,6 @@ public class Merge{
 	System.out.println(toString(c));
 	System.out.println(toString(ary));
 	System.out.println(toString(a));
-    }
+	}*/
     
 }
