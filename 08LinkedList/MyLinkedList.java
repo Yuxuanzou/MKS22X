@@ -26,7 +26,7 @@ public class MyLinkedList{
     }
 
     //add to the end
-    public boolean add(int value){
+    public boolean add(Integer value){
 	Node n = new Node(value);
 	if (length == 0){
 	    first = n;
