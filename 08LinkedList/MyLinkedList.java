@@ -195,7 +195,7 @@ public class MyLinkedList{
 	    return str;
 	}
     }
-
+    /*
      public static void main(String[] args){
      MyLinkedList a = new MyLinkedList();
 
@@ -297,4 +297,5 @@ public class MyLinkedList{
        System.out.println("This size is out of bounds");
      } //prints "This size is out of bounds"
    }
+    */
 }
