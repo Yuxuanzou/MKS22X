@@ -158,7 +158,7 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable{
     }
 
     //Node class
-    private class Node<T>{
+    private class Node{
 	private Node next,prev;
 	private T data;
 	
@@ -200,7 +200,22 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable{
     }
 
     //make iterator
-    //public Iterator<T> iterator(){
-    //	return new 
-    //}
+    public Iterator<T> iterator(){
+    	return new Iterator<T>(){
+	   Node current = first;
+	    
+	    public T next(){
+		T value = current.getValue();
+		current = current.getNext();
+		return value;
+	    }
+
+	    public boolean hasNext(){
+		if (current != null){
+		    return true;
+		}
+		return false;
+	    }
+	};
+    }
 }
