@@ -39,6 +39,13 @@ public class MyLinkedList{
 	return true;
     }
 
+    //clear
+    public void clear(){
+	length = 0;
+	first = null;
+	last = null;
+    }
+
      //find the size
     public int size(){
 	return length;
@@ -119,7 +126,8 @@ public class MyLinkedList{
 	Node current = first;
 	for (int i = 0;i < length;i++){
 	    if (current.getValue() == value){
-		return remove(i);
+		remove(i);
+		return true;
 	    }
 	    current = current.getNext();
 	}
@@ -127,22 +135,23 @@ public class MyLinkedList{
     }
 
     //remove at specific index
-    public boolean remove(int index){
+    public Integer remove(int index){
 	if (index >= length || index < 0){
 	    throw new IndexOutOfBoundsException();
 	}
 	Node current = getNode(index);
+	Integer answer = current.getValue();
 	if (index == length - 1){
 	    last = current.getPrev();
 	    last.setNext(null);
 	    length--;
-	    return true;
+	    return answer;
 	}
 	else if (index == 0){
 	    first = current.getNext();
 	    first.setPrev(null);
 	    length--;
-	    return true;
+	    return answer;
 	}
 	else{
 	    Node before = current.getPrev();
@@ -150,7 +159,7 @@ public class MyLinkedList{
 	    before.setNext(after);
 	    after.setPrev(before);
 	    length--;
-	    return true;
+	    return answer;
 	}
     }
 
