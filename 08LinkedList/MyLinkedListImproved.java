@@ -214,6 +214,9 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<
 	   Node current = first;
 	    
 	    public T next(){
+		if (!hasNext()){
+		    throw new NoSuchElementException();
+		}
 		T value = current.getValue();
 		current = current.getNext();
 		return value;
@@ -260,6 +263,13 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<
 	    return index;
 	}
 	return -1;
+    }
+
+    /*public void extends(MyLinkedListImproved<T> other){
+	for (T stuff : other){
+	    this.add(stuff);
+	    this.length() 
+	}
     }
 
     /*public static void main(String[] args){
