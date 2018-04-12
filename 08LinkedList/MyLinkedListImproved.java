@@ -265,22 +265,31 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<
 	return -1;
     }
 
-    /*public void extends(MyLinkedListImproved<T> other){
-	for (T stuff : other){
-	    this.add(stuff);
-	    this.length() 
-	}
+    public void extend(MyLinkedListImproved<T> other){
+        this.last.setNext(other.first);
+	other.first.setPrev(this.last);
+	int l = other.length;
+	this.length += l;
+	this.last = other.last;
+	//say goodbye
+	other.length = 0;
+	other.first = null;
+	other.last = null;
     }
 
-    /*public static void main(String[] args){
-	int[] test = {-1,10,213,-10,-123,100,123,22,211,-1000,1000,1000,1000,-100,1000};
+    public static void main(String[] args){
+	int[] test = {-1,10,213,-10,-123};
+	int[] d = {-12,123,123};
 		MyLinkedListImproved<Integer> a = new MyLinkedListImproved<>();
-
+		MyLinkedListImproved<Integer> b = new MyLinkedListImproved<>();
 		for (int x : test) {
 			a.add(x);
 		}
 
-		System.out.println(a.min());
-
-		}*/
+		for (int stuff : d){
+		    b.add(stuff); 
+		}
+		a.extend(b);
+		System.out.println(a);
+    }
 }
