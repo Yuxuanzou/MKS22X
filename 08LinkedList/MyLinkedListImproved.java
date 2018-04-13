@@ -289,7 +289,9 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<
 		for (int stuff : d){
 		    b.add(stuff); 
 		}
-		a.extend(b);
-		System.out.println(a);
+		System.out.println(a.max());
+		System.out.println(a.min());
+		System.out.println(b.max());
+		System.out.println(b.min());
     }
 }
