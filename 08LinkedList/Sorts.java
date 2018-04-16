@@ -3,34 +3,33 @@ import java.util.*;
 public class Sorts{
     //sorting
     public static void radixsort(MyLinkedListImproved<Integer> data){
-	@SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] p = new MyLinkedListImproved[10];
-	@SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] n = new MyLinkedListImproved[10];
-	for (int b = 0;b < 10;b++){
+	if (data.size() == 0){
+	    return;
+	}
+	@SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] p = new MyLinkedListImproved[20];
+	for (int b = 0;b < 20;b++){
 	    p[b] = new MyLinkedListImproved<Integer>();
-	    n[b] = new MyLinkedListImproved<Integer>();
 	}
         String big = ("" + data.get(data.max()));
 	String small = ("" + Math.abs(data.get(data.min())));
 	int numOfComb = Math.max(big.length(),small.length());
 	for (int i = 0;i < numOfComb;i++){
-	    for (Integer x : data){
-		int index = Math.abs(getDigit(i,x));
+	    MyLinkedListImproved<Integer> temp = data;
+	    for (Integer x : temp){
+		int index = getDigit(i,x);
 		if (x >= 0){
 		    Integer place = getDigit(i,x);
-		    p[index].add(x);
+		    p[index + 9].add(x);
 		}
 		else {
-		    Integer place = getDigit(i,x);
-		    n[index].add(x);
+		    p[index + 9].add(x);
 		}
 	    }
-	    data.clear();
-	    for (int c = n.length - 1;c >= 0;c--){
-		data.extend(n[c]);
-	    }
+	    temp.clear();
 	    for (int d = 0;d < p.length;d++){
-		data.extend(p[d]);
+		temp.extend(p[d]);
 	    }
+	    data = temp;
 	}
     }
 
@@ -49,7 +48,7 @@ public class Sorts{
 
     /*public static void main(String[]args){
 	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();       
-	int[] test = {-1,10,213,-10,-123};
+	int[] test = {1};
 	for (Integer x : test){
 	    m.add(x);
 	}
