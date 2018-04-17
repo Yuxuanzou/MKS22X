@@ -46,9 +46,13 @@ public class Sort{
 	}
     }
 
+    public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){
+        radixsort(data);
+    }
+
     /*public static void main(String[]args){
 	MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();       
-	int[] test = {1};
+	int[] test = {1,123,123,01,-1,2,-10,22};
 	for (Integer x : test){
 	    m.add(x);
 	}
@@ -56,5 +60,6 @@ public class Sort{
 	radixsort(m);
 	System.out.println(m);
 	
-	}*/
+	}
+    */
 }
