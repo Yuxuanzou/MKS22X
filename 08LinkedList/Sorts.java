@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Sort{
+public class Sorts{
     //sorting
     public static void radixsort(MyLinkedListImproved<Integer> data){
 	if (data.size() == 0){
