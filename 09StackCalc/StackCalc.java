@@ -62,8 +62,10 @@ public class StackCalc{
 	return str.contains(value);
     }
 
+    /*
     public static void main(String[] args){
-	String str = "10 5 / 3 *";
-	System.out.println(calc.eval(str));
+	String str = "10 3 / 3 *";
+	System.out.println(StackCalc.eval(str));
     }
+    */
 }
