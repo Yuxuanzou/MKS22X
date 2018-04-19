@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.*;
 
-public class StackCalc{
+public class Calculator{
     //evaluation
     public static double eval(String value){
         String[] values = value.split(" ");
