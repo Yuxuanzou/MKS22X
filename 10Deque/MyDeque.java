@@ -8,6 +8,8 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
     public MyDeque(){
 	data = (E[])new Object[10];
+	front = 0;
+	back = 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -16,6 +18,8 @@ public class MyDeque<E>{
 	    throw new IllegalArgumentException();
 	}
 	data = (E[]) new Object[initialCapacity];
+	front = 0;
+	back = 0;
     }
 
     //return size
@@ -25,14 +29,16 @@ public class MyDeque<E>{
 
     //resizing
     @SuppressWarnings("unchecked")
-    private void resize(){
+   private void resize(){
 	E[] temp = (E[]) new Object[size() * 2];
 	for (int i = 0;i < size();i++){
 	    temp[i] = data[i];
 	}
 	data = temp;
+	front = 0;
+	back = size() - 1;
     }
-
+    
     //adding to the front
     public void addFirst(E element){
 	if (element == null){
@@ -78,7 +84,7 @@ public class MyDeque<E>{
 		data[back] = element;
 	    }
 	}
-	size -= 1;
+	size += 1;
     }
 
     //remove from front
@@ -150,7 +156,9 @@ public class MyDeque<E>{
     return ans;
   }
 
+    /*
     public static void main(String[] args) {
+	try{
     MyDeque<String> a = new MyDeque<>(), a1 = new MyDeque<>();
     ArrayList<String> b = new ArrayList<>();
 
@@ -195,6 +203,8 @@ public class MyDeque<E>{
     else{
       System.out.println("Your deque is bug-free!");
     }
-
+	}catch (NoSuchElementException e){
+	}
   }
+    */
 }
