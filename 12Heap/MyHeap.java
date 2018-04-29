@@ -1,3 +1,6 @@
+import java.util.*;
+import java.util.Arrays;
+
 public class MyHeap{
     private int size;
     private String[] heap;
@@ -31,26 +34,39 @@ public class MyHeap{
     }
     
     private void pushUp(int index){
-	if (max){
-	    while(index > 1 && heap[index].compareTo(heap[index / 2]) > 0){
-		swap(index,index / 2);
-		index = index / 2;
+	if (max && index >= 1){
+	    while(heap[index].compareTo(heap[(index - 1)/2]) > 0){
+		swap(index,(index - 1)/2);
+		index = (index - 1)/2;
 	    }
 	}
 	else {
-	    while(index != 1 && heap[index].compareTo(heap[index / 2]) < 0){
-		swap(index,index / 2);
-		index = index / 2;
+	    if (!max && index >= 1){
+		while(heap[index].compareTo(heap[(index - 1)/2]) < 0){
+		    swap(index,(index - 1)/2);
+		    index = (index - 1)/2;
+		}
 	    }
 	}
     }
+
+    public void add(String str){
+	if (size() == heap.length){
+	    resize();
+	}
+	heap[size()] = str;
+	pushUp(size());
+        size++;
+    }
+
+
 
     private void pushDown(int index){
 	int left = (index * 2) + 1;
 	int right = (index * 2) + 2;
-	if (max && left < size() && right < size()){
-	    while(heap[index].compareTo(heap[left]) > 0 || heap[index].compareTo(heap[right]) > 0){
-		if (heap[index].compareTo(heap[left]) > 0){
+	if (max){
+	    while(left < size() && heap[index].compareTo(heap[left]) < 0){
+		if (heap[right].compareTo(heap[left]) <= 0 || right >= size()){
 		    swap(index,left);
 		    index = left;
 		}
@@ -59,10 +75,10 @@ public class MyHeap{
 		    index = right;
 		}
 	    }
-	}
-	else {
-	    while(heap[index].compareTo(heap[left]) < 0 || heap[index].compareTo(heap[right]) < 0){
-		if (heap[index].compareTo(heap[left]) < 0){
+	}	    
+	else if (!max){
+	    while(left < size() && heap[index].compareTo(heap[left]) > 0){
+		if (heap[right].compareTo(heap[left]) >= 0 || right >= size()){
 		    swap(index,left);
 		    index = left;
 		}
@@ -74,4 +90,35 @@ public class MyHeap{
 	}
     }
 
+    public String remove(){
+	String str = heap[0];
+	swap(0, size()-1);
+        size--;
+	pushDown(0);
+	return str;
+    }
+
+    public String peek(){
+	return heap[0];
+    }
+
+    public void resize(){
+	String[] temp = new String[heap.length * 2];
+	for(int i = 0; i < size(); i++){
+	    temp[i] = heap[i];
+	}
+	heap = temp;
+    }
+
+    public String toString(){
+	String result = "";
+	for(int i = 0; i < size(); i++){
+	    result += "[" + heap[i] + "]";
+	}
+	return result;
+    }
+
+    public static void main(String[] args){
+
+    }
 }
