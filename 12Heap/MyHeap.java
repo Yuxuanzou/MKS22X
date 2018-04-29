@@ -23,16 +23,19 @@ public class MyHeap{
 	heap = new String[10];
     }
 
+    //helper method, swap two indices
     private void swap(int a,int b){
 	String temp = heap[a];
 	heap[a] = heap[b];
 	heap[b] = temp;
     }
 
+    //size of heap
     public int size(){
 	return size;
     }
-    
+
+    //helper method
     private void pushUp(int index){
 	if (max && index >= 1){
 	    while(heap[index].compareTo(heap[(index - 1)/2]) > 0){
@@ -50,6 +53,7 @@ public class MyHeap{
 	}
     }
 
+    //add a string
     public void add(String str){
 	if (size() == heap.length){
 	    resize();
@@ -59,8 +63,7 @@ public class MyHeap{
         size++;
     }
 
-
-
+    //helper method
     private void pushDown(int index){
 	int left = (index * 2) + 1;
 	int right = (index * 2) + 2;
@@ -90,6 +93,7 @@ public class MyHeap{
 	}
     }
 
+    //remove a string
     public String remove(){
 	String str = heap[0];
 	swap(0, size()-1);
@@ -98,10 +102,12 @@ public class MyHeap{
 	return str;
     }
 
+    //peek 0
     public String peek(){
 	return heap[0];
     }
 
+    //resize
     public void resize(){
 	String[] temp = new String[heap.length * 2];
 	for(int i = 0; i < size(); i++){
