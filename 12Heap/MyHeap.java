@@ -1,18 +1,20 @@
 import java.util.*;
 import java.util.Arrays;
 
-public class MyHeap{
+public class MyHeap <T extends Comparable<T>>{
     private int size;
-    private String[] heap;
+    private T[] heap;
     private boolean max;
 
     //construct a max heap size 10
+    @SuppressWarnings("unchecked")
     public MyHeap(){
-	heap = new String[10];
+	heap = (T[])new Comparable[10];
 	max = true;
     }
 
     //construct max or min heap based on boolean
+    @SuppressWarnings("unchecked")
     public MyHeap(boolean b){
 	if (b){
 	    max = true;
@@ -20,12 +22,12 @@ public class MyHeap{
 	else {
 	    max = false;
 	}
-	heap = new String[10];
+	heap = (T[])new Comparable[10];
     }
 
     //helper method, swap two indices
     private void swap(int a,int b){
-	String temp = heap[a];
+        T temp = heap[a];
 	heap[a] = heap[b];
 	heap[b] = temp;
     }
@@ -54,11 +56,11 @@ public class MyHeap{
     }
 
     //add a string
-    public void add(String str){
+    public void add(T value){
 	if (size() == heap.length){
 	    resize();
 	}
-	heap[size()] = str;
+	heap[size()] = value;
 	pushUp(size());
         size++;
     }
@@ -94,22 +96,23 @@ public class MyHeap{
     }
 
     //remove a string
-    public String remove(){
-	String str = heap[0];
+    public T remove(){
+	T value = heap[0];
 	swap(0, size()-1);
         size--;
 	pushDown(0);
-	return str;
+	return value;
     }
 
     //peek 0
-    public String peek(){
+    public T peek(){
 	return heap[0];
     }
 
     //resize
+    @SuppressWarnings("unchecked")
     public void resize(){
-	String[] temp = new String[heap.length * 2];
+        T[] temp = (T[])new Comparable[size*2];
 	for(int i = 0; i < size(); i++){
 	    temp[i] = heap[i];
 	}
@@ -124,7 +127,24 @@ public class MyHeap{
 	return result;
     }
 
-    public static void main(String[] args){
 
+    /*public static void main(String[] args){
+	MyHeap<String> max = new MyHeap<>(true);
+	MyHeap<String> min = new MyHeap<>(false);
+	max.add("this");
+	max.add("why");
+	max.add("you");
+	max.add("do");
+	System.out.println(max);
+	max.add("ok");
+	System.out.println(max);
+	min.add("why");
+	min.add("you");
+	min.add("do");
+	min.add("this");
+	System.out.println(min);
+	min.remove();
+	System.out.println(min);
     }
+    */
 }
