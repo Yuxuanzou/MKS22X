@@ -129,22 +129,6 @@ public class MyHeap <T extends Comparable<T>>{
 	return result;
     }
 
-    public static void main(String[] args) {
-
-		MyHeap<Integer> a = new MyHeap<>(false);
-		for (int i = 0 ; i < 10; i++) {
-			a.add(i);
-		}
-		//a.test();
-		System.out.println(a);
-		for (int i = 0; i < 5; i++) {
-			 System.out.println(a.remove());
-			 System.out.println(a);
-			 System.out.println();
-		}
-		System.out.println(a);
-    }
-
     /*public static void main(String[] args){
 	MyHeap<String> max = new MyHeap<>(true);
 	MyHeap<String> min = new MyHeap<>(false);
