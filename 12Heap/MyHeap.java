@@ -67,10 +67,10 @@ public class MyHeap <T extends Comparable<T>>{
 
     //helper method
     private void pushDown(int index){
-	int left = (index * 2) + 1;
-	int right = (index * 2) + 2;
 	if (max){
-	    while(left < size() && heap[index].compareTo(heap[left]) < 0){
+	    while((index * 2) + 1 < size() && heap[index].compareTo(heap[(index * 2) + 1]) < 0){
+		int left = (index * 2) + 1;
+		int right = (index * 2) + 2;
 		if (heap[right].compareTo(heap[left]) <= 0 || right >= size()){
 		    swap(index,left);
 		    index = left;
@@ -82,7 +82,9 @@ public class MyHeap <T extends Comparable<T>>{
 	    }
 	}	    
 	else if (!max){
-	    while(left < size() && heap[index].compareTo(heap[left]) > 0){
+	    while((index * 2) + 1 < size() && heap[index].compareTo(heap[(index * 2) + 1]) > 0){
+		int left = (index * 2) + 1;
+		int right = (index * 2) + 2;
 		if (heap[right].compareTo(heap[left]) >= 0 || right >= size()){
 		    swap(index,left);
 		    index = left;
@@ -127,6 +129,21 @@ public class MyHeap <T extends Comparable<T>>{
 	return result;
     }
 
+    public static void main(String[] args) {
+
+		MyHeap<Integer> a = new MyHeap<>(false);
+		for (int i = 0 ; i < 10; i++) {
+			a.add(i);
+		}
+		//a.test();
+		System.out.println(a);
+		for (int i = 0; i < 5; i++) {
+			 System.out.println(a.remove());
+			 System.out.println(a);
+			 System.out.println();
+		}
+		System.out.println(a);
+    }
 
     /*public static void main(String[] args){
 	MyHeap<String> max = new MyHeap<>(true);
