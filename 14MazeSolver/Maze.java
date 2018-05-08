@@ -1,40 +1,21 @@
+import java.io.*;
+import java.io.FileNotFoundException;
+import java.util.*;
 public class Maze{
-  private Location start,end;
-  private char[][] board;
+  private static final String CLEAR_SCREEN =  "\033[2J";
+  private static final String HIDE_CURSOR =  "\033[?25l";
+  private static final String SHOW_CURSOR =  "\033[?25h";
+  Location start,end;
+  private char[][]maze;
 
-  public Maze(String mazeText){
-  }
 
-  // '#' - wall 
-  // ' ' - open space
-  // '?' - frontier space
-  // '.' - visited space
-  // 'E' - end space (do not replace this)
-  // '@' - part of solution
-  // 'S' - starting space (do not replace this)
-  public String toString(){
-  }
-   
-  // Work on this method as a group! 
-  public String toStringColor(){
-  }
 
-  //return a list of Locations that are:
-  // adjacent to n and  not visited
-  // all the Locations in this list should have their previous set to n.
-  public Location[] getNeighbors(Location n){
-    return null;
-  }
-
-  public Location getStart(){
-    return null;
-  }
-
-  public Location getEnd(){
-    return null;
-  }
-
-    public Location[] getNeighbors(Location L){
+  /*
+  YOU MUST COMPLETE THIS METHOD!!!
+  YOU MUST COMPLETE THIS METHOD!!!
+  YOU MUST COMPLETE THIS METHOD!!!
+  */
+  public Location[] getNeighbors(Location L){
     return null;
   }
 
@@ -180,6 +161,3 @@ public class Maze{
     return ans;
   }
 }
-
-}
-
