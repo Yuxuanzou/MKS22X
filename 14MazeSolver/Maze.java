@@ -16,7 +16,18 @@ public class Maze{
   YOU MUST COMPLETE THIS METHOD!!!
   */
   public Location[] getNeighbors(Location L){
-    return null;
+      Location[] l = new Location[4];
+      int[] xMoves = new int[] {0,0,1,-1};
+      int[] yMoves = new int[] {1,-1,0,0};
+      for (int i = 0;i < 4;i++){
+	  try{
+	      if (maze[L.getX() + xMoves[i]][L.getY() + yMoves[i]] == ' ' || maze[L.getX() + xMoves[i]][L.getY() + yMoves[i]] == 'E'){
+		  l[i] = new Location(L.getX() + xMoves[i],L.getY() + yMoves[i],L);
+	      }
+	  } catch (IndexOutOfBoundsException e){
+	  }
+      }
+      return l;
   }
 
   public Location getStart(){
