@@ -1,6 +1,7 @@
-public class Location{
+public class Location implements Comparable<Location>{
     private int x,y;
     private Location previous;
+    private double distance;
 
     public Location(int _x, int _y, Location prev){
 	x = _x;
@@ -18,5 +19,9 @@ public class Location{
 
     public Location getPrev(){
 	return previous;
+    }
+
+    public int compareTo(Location other){
+	return (this.getX() + this.getY()) - (other.getX() + other.getY());
     }
 }

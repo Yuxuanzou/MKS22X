@@ -3,7 +3,7 @@ public class MazeSolver{
   private Frontier frontier;
 
   public MazeSolver(String mazeText){
-    
+      maze = new Maze(mazeText);
   }
 
   //Default to BFS
@@ -16,24 +16,36 @@ public class MazeSolver{
       if (mode == 0){
 	  frontier = new FrontierQuene();
       }
-      if (mode == 1){
+      else if (mode == 1){
 	  frontier = new FrontierStack();
+      }
+      else if (mode == 2){
+	  frontier = new FrontierPriorityQuene();
       }
       frontier.add(maze.getStart());
       Location current = null;
       while(frontier.hasNext()){
 	  current = frontier.next();
-	  if (current.equals(maze.getEnd())){
+	  if (checkEnd(current,maze.getEnd())){
+	      current = current.getPrev();
+	      while(current.getPrev() != null){
+		  maze.set(current.getX(),current.getY(),'@');
+		  current = current.getPrev();
+	      }
+	      maze.set(current.getX(),current.getY(),'@');
 	      return true;
 	  }
+	  maze.set(current.getX(),current.getY(),'.');
 	  Location[] neighbors = maze.getNeighbors(current);
 	  for (int i = 0;i < neighbors.length;i++){
-	      if (neighbors[i].equals(maze.getEnd())){
-		  return true;
-	      }
-	      else{
-		  frontier.add(neighbors[i]);
-		  maze.set(neighbors[i].getX(),neighbors[i].getY(),'?');
+	      if (neighbors[i] != null){
+		  if (neighbors[i].equals(maze.getEnd())){
+		      return true;
+		  }
+		  else{
+		      frontier.add(neighbors[i]);
+		      maze.set(neighbors[i].getX(),neighbors[i].getY(),'?');
+		  }
 	      }
 	  }
       }
@@ -47,7 +59,17 @@ public class MazeSolver{
     return false;
   }
 
+    private boolean checkEnd(Location a, Location b){
+	return (a.getX() == b.getX() && a.getY() == b.getY());
+    }
+    
   public String toString(){
     return maze.toString();
   }
+
+    public static void main(String[] args){
+	MazeSolver x = new MazeSolver("maze1.txt");
+	System.out.println(x.solve(2));
+	System.out.println(x);
+    }
 }
