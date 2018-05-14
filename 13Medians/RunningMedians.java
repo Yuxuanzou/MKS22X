@@ -1,10 +1,10 @@
 import java.util.*;
 
-public class RunningMedian{
+public class RunningMedians{
     private int size;
     private MyHeap<Double> min,max;
     
-    public RunningMedian(){
+    public RunningMedians(){
 	min = new MyHeap<>(true);
 	max = new MyHeap<>(false);
 	size = 0;
