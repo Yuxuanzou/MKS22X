@@ -1,7 +1,7 @@
 public class Location implements Comparable<Location>{
     private int x,y;
     private Location previous;
-    private double distance;
+    private double distance,distanceSoFar;
 
     public Location(int _x, int _y, Location prev){
 	x = _x;
