@@ -68,7 +68,7 @@ public class MyHeap <T extends Comparable<T>>{
     //helper method
     private void pushDown(int index){
 	if (max){
-	    while((index * 2) + 1 < size() && heap[index].compareTo(heap[(index * 2) + 1]) < 0){
+	    while((index * 2) + 2 < size() && (heap[index].compareTo(heap[(index * 2) + 1]) < 0 || heap[index].compareTo(heap[(index * 2) + 2]) < 0)){
 		int left = (index * 2) + 1;
 		int right = (index * 2) + 2;
 		if (heap[right].compareTo(heap[left]) <= 0 || right >= size()){
@@ -82,7 +82,7 @@ public class MyHeap <T extends Comparable<T>>{
 	    }
 	}	    
 	else if (!max){
-	    while((index * 2) + 1 < size() && heap[index].compareTo(heap[(index * 2) + 1]) > 0){
+	    while((index * 2) + 2 < size() && (heap[index].compareTo(heap[(index * 2) + 1]) > 0 || heap[index].compareTo(heap[(index * 2) + 2]) > 0)){
 		int left = (index * 2) + 1;
 		int right = (index * 2) + 2;
 		if (heap[right].compareTo(heap[left]) >= 0 || right >= size()){

@@ -7,6 +7,7 @@ public class Maze{
   private static final String SHOW_CURSOR =  "\033[?25h";
   Location start,end;
   private char[][]maze;
+    private boolean aStar;
 
 
 
@@ -22,7 +23,8 @@ public class Maze{
       for (int i = 0;i < 4;i++){
 	  try{
 	      if (maze[L.getX() + xMoves[i]][L.getY() + yMoves[i]] == ' ' || maze[L.getX() + xMoves[i]][L.getY() + yMoves[i]] == 'E'){
-		  l[i] = new Location(L.getX() + xMoves[i],L.getY() + yMoves[i],L);
+		  l[i] = new Location(L.getX() + xMoves[i],L.getY() + yMoves[i],L,L.getDistanceSoFar() + 1,(Math.abs(end.getX()-L.getX()) + Math.abs(end.getY() - L.getY())),aStar);
+		  i++;
 	      }
 	  } catch (IndexOutOfBoundsException e){
 	  }
@@ -37,6 +39,9 @@ public class Maze{
     return end;
   }
 
+    public void setAStar(boolean a){
+	aStar = a;
+    }
 
   private static String go(int x,int y){
     return ("\033[" + x + ";" + y + "H");
@@ -52,6 +57,7 @@ public class Maze{
     ArrayList<char[]> lines = new ArrayList<char[]>();
     int startr=-1, startc=-1;
     int endr=-1,endc=-1;
+    aStar = false;
     try{
       Scanner in = new Scanner(new File(filename));
       while(in.hasNext()){
@@ -101,8 +107,8 @@ public class Maze{
     The start/end Locations may need more information later when we add
     other kinds of frontiers!
     */
-    end = new Location(endr,endc,null);
-    start = new Location(startr,startc,null);
+    end = new Location(endr,endc,null,0,0,aStar);
+    start = new Location(startr,startc,null,Math.abs(endr-startr) + Math.abs(endc-startc), 0,aStar);
   }
 
   public String toStringColor(){
