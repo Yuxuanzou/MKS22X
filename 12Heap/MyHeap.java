@@ -68,7 +68,7 @@ public class MyHeap <T extends Comparable<T>>{
     //helper method
     private void pushDown(int index){
 	if (max){
-	    while((index * 2) + 1 < size() && heap[index].compareTo(heap[(index * 2) + 1]) < 0){
+	    while((index * 2) + 2 < size() && (heap[index].compareTo(heap[(index * 2) + 1]) < 0 || heap[index].compareTo(heap[(index * 2) + 2]) < 0)){
 		int left = (index * 2) + 1;
 		int right = (index * 2) + 2;
 		if (heap[right].compareTo(heap[left]) <= 0 || right >= size()){
@@ -82,7 +82,7 @@ public class MyHeap <T extends Comparable<T>>{
 	    }
 	}	    
 	else if (!max){
-	    while((index * 2) + 1 < size() && heap[index].compareTo(heap[(index * 2) + 1]) > 0){
+	    while((index * 2) + 2 < size() && (heap[index].compareTo(heap[(index * 2) + 1]) > 0 || heap[index].compareTo(heap[(index * 2) + 2]) > 0)){
 		int left = (index * 2) + 1;
 		int right = (index * 2) + 2;
 		if (heap[right].compareTo(heap[left]) >= 0 || right >= size()){
@@ -129,23 +129,42 @@ public class MyHeap <T extends Comparable<T>>{
 	return result;
     }
 
-    /*public static void main(String[] args){
-	MyHeap<String> max = new MyHeap<>(true);
-	MyHeap<String> min = new MyHeap<>(false);
-	max.add("this");
-	max.add("why");
-	max.add("you");
-	max.add("do");
-	System.out.println(max);
-	max.add("ok");
-	System.out.println(max);
-	min.add("why");
-	min.add("you");
-	min.add("do");
-	min.add("this");
-	System.out.println(min);
-	min.remove();
-	System.out.println(min);
+    /*public static void main(String[] args) {
+    MyHeap<String> a = new MyHeap<>(false);
+    String[] b = new String[20];
+    for(int i = 0; i < 20; i++){
+      int temp = (int)(Math.random() * 26) + 97;
+      char value = (char)temp;
+      a.add("" + value);
+      b[i] = "" + value;
     }
+
+    Arrays.sort(b);
+
+    System.out.println("MyHeap: " + a);
+    System.out.println("Arrays: "+ Arrays.toString(b));
+
+    boolean isCorrect = true;
+    for(int i = 0; i < 20; i++){
+      //System.out.println("size: " + a.size());
+      //System.out.println("heap before: " + a.toT());
+      String temp = a.remove();
+      if(!(temp.equals(b[i]))){
+        System.out.println("there is an error");
+        System.out.println(temp);
+        System.out.println(b[i]);
+        System.out.println(a);
+        isCorrect = false;
+      }
+    }
+
+    if(isCorrect){
+      System.out.println("Your heap is correct!");
+    }
+    else{
+      System.out.println("There are error(s)");
+    }
+
+  }
     */
 }
