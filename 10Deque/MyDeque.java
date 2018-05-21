@@ -31,8 +31,22 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
    private void resize(){
 	E[] temp = (E[]) new Object[size() * 2];
-	for (int i = 0;i < size();i++){
-	    temp[i] = data[i];
+	int index = 0;
+	if (front > back){
+	    for (int c = front;c < size();c++){
+		temp[index] = data[c];
+		index++;
+	    }
+	    for (int d = 0;d <= back;d++){
+		temp[index] = data[d];
+		index++;
+	    }
+	}
+	else {
+	    for (int i = front;i < size();i++){
+		temp[index] = data[i];
+		index++;
+	    }
 	}
 	data = temp;
 	front = 0;
