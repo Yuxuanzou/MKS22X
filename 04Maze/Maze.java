@@ -114,7 +114,7 @@ public class Maze {
 	}
 	return -1;
     }
-    /*
+    
     public static void main(String[]args){
         Maze f;
 	try {
@@ -124,5 +124,5 @@ public class Maze {
 	} catch (FileNotFoundException e){
 	}
 	}
-    */
+    
 }
