@@ -99,11 +99,11 @@ public class MazeSolver{
 	System.out.println("\033[2J\033[1;1H");
     }
     
-    /*public static void main(String[] args){
+    public static void main(String[] args){
 	MazeSolver x = new MazeSolver("maze1.txt");
 	x.setAnimate(true);
 	System.out.println(x.solve(0));
 	System.out.println(x);
     }
-    */
+    
 }

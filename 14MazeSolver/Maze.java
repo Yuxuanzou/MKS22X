@@ -23,8 +23,13 @@ public class Maze{
       for (int i = 0;i < 4;i++){
 	  try{
 	      if (maze[L.getX() + xMoves[i]][L.getY() + yMoves[i]] == ' ' || maze[L.getX() + xMoves[i]][L.getY() + yMoves[i]] == 'E'){
-		  l[i] = new Location(L.getX() + xMoves[i],L.getY() + yMoves[i],L,L.getDistanceSoFar() + 1,(Math.abs(end.getX()-L.getX()) + Math.abs(end.getY() - L.getY())),aStar);
-		  i++;
+		  int distanceNeeded = (Math.abs(end.getX()-(L.getX() + xMoves[i])) + Math.abs(end.getY() - (L.getY() + yMoves[i])));
+		  if (aStar){
+		      l[i] = new Location(L.getX() + xMoves[i],L.getY() + yMoves[i],L,L.getDistanceSoFar() + 1,distanceNeeded,L.getDistanceSoFar() + distanceNeeded,aStar);
+		  }
+		  else{
+		      l[i] = new Location(L.getX() + xMoves[i],L.getY() + yMoves[i],L,L.getDistanceSoFar() + 1,distanceNeeded,distanceNeeded,aStar);
+		  }
 	      }
 	  } catch (IndexOutOfBoundsException e){
 	  }
@@ -107,8 +112,8 @@ public class Maze{
     The start/end Locations may need more information later when we add
     other kinds of frontiers!
     */
-    end = new Location(endr,endc,null,0,0,aStar);
-    start = new Location(startr,startc,null,Math.abs(endr-startr) + Math.abs(endc-startc), 0,aStar);
+    end = new Location(endr,endc,null,0,0,0,aStar);
+    start = new Location(startr,startc,null, 0,Math.abs(endr-startr) + Math.abs(endc-startc),Math.abs(endr-startr) + Math.abs(endc-startc),aStar);
   }
 
   public String toStringColor(){

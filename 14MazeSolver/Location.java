@@ -1,7 +1,7 @@
 public class Location implements Comparable<Location>{
     private int x,y;
     private Location previous;
-    private int distanceNeeded,distanceSoFar;
+    private int distanceNeeded,distanceSoFar,distanceClosest;
     private boolean aStar;
 
     public Location(int _x, int _y, Location prev){
@@ -9,12 +9,13 @@ public class Location implements Comparable<Location>{
 	y = _y;
 	previous = prev;
     }
-    public Location(int _x, int _y, Location prev,int s,int f,boolean a){
+    public Location(int _x, int _y, Location prev,int s,int f,int b,boolean a){
 	x = _x;
 	y = _y;
 	previous = prev;
 	distanceSoFar = s;
 	distanceNeeded = f;
+	distanceClosest = b;
 	aStar = a;
     }
 
@@ -38,10 +39,11 @@ public class Location implements Comparable<Location>{
 	return distanceSoFar;
     }
 
+    public int getDistance(){
+	return distanceClosest;
+    }
+
     public int compareTo(Location other){
-	if (aStar){
-	    return (getDistanceNeeded() + getDistanceSoFar()) - (other.getDistanceNeeded() + other.getDistanceSoFar());
-	}
-	return (getDistanceNeeded() - other.getDistanceNeeded());
+	return this.getDistance() - other.getDistance();
     }
 }
