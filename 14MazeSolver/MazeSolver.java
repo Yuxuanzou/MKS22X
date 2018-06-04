@@ -15,11 +15,11 @@ public class MazeSolver{
     //1: DFS
     public boolean solve(int mode){
 	boolean aStar;
-	if (mode == 1){
+	if (mode == 0){
 	    frontier = new FrontierQuene();
 	    aStar = false;
 	}
-	else if (mode == 0){
+	else if (mode == 1){
 	    frontier = new FrontierStack();
 	    aStar = false;
 	}
