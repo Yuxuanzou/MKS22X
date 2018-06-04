@@ -47,7 +47,7 @@ public class MazeSolver{
 		    current = current.getPrev();
 		}
 		maze.set(current.getX(),current.getY(),'@');
-		maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
+	        maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
 		return true;
 	    }
 	    maze.set(current.getX(),current.getY(),'.');
@@ -79,7 +79,7 @@ public class MazeSolver{
     }
     
     public String toString(){
-	return maze.toStringColor();
+	return maze.toString();
     }
 
     private void wait(int millis){
@@ -100,9 +100,9 @@ public class MazeSolver{
     }
     
     public static void main(String[] args){
-	MazeSolver x = new MazeSolver("maze1.txt");
+	MazeSolver x = new MazeSolver("data4.dat");
 	x.setAnimate(true);
-	System.out.println(x.solve(0));
+	System.out.println(x.solve(3));
 	System.out.println(x);
     }
     
