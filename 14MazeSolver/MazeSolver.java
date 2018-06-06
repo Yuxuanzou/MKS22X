@@ -1,7 +1,7 @@
 public class MazeSolver{
     private Maze maze;
     private Frontier frontier;
-    private boolean animate;
+    private boolean animate = false;
     
     public MazeSolver(String mazeText){
 	maze = new Maze(mazeText);
@@ -100,10 +100,7 @@ public class MazeSolver{
     }
     
     public static void main(String[] args){
-	MazeSolver x = new MazeSolver("data4.dat");
-	x.setAnimate(true);
-	System.out.println(x.solve(3));
-	System.out.println(x);
+        
     }
     
 }
